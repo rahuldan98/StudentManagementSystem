@@ -1,32 +1,49 @@
 package com.org.studentmanagementsystem.service.implementation;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Optional;
 
-import com.org.studentmanagementsystem.dto.AdminDto;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.stereotype.Service;
+
+import com.org.studentmanagementsystem.exception.DuplicateAdminException;
+import com.org.studentmanagementsystem.exception.InvalidAdminException;
 import com.org.studentmanagementsystem.models.Admin;
 import com.org.studentmanagementsystem.repository.IAdminRepository;
 import com.org.studentmanagementsystem.service.IAdminService;
 
+@Service
 public class AdminServiceImpl implements IAdminService {
 	private IAdminRepository adminRepository;
+
 	
-	@Autowired
 	public AdminServiceImpl(IAdminRepository adminRepository) {
 		super();
 		this.adminRepository = adminRepository;
 	}
 
 	@Override
-	public Admin register(AdminDto admindto) {
-		Admin admin;
-		adminRepository.save(admin);
-		return null;
+	public Admin register(Admin admin) throws DuplicateAdminException {
+
+		Optional<Admin> optionalAdmin = adminRepository.findByUsername(admin.getUsername());
+
+		if (optionalAdmin.isPresent())
+			throw new DuplicateAdminException("Duplicate admin present");
+
+			return adminRepository.save(admin);
+
 	}
 
 	@Override
-	public Admin login(AdminDto admindto) {
-		// TODO Auto-generated method stub
-		return null;
+	public Admin login(Admin admin) {
+
+			Example<Admin> exampleAdmin = Example.of(admin);
+			Optional<Admin>optionalAdmin=adminRepository.findOne(exampleAdmin);
+			
+			if(optionalAdmin.isEmpty())
+				throw new InvalidAdminException ("Admin not found");
+			return optionalAdmin.get();
 	}
 
 }

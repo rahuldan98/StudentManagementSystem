@@ -21,7 +21,15 @@ public class Admin {
 		this.id = id;
 		this.username = username;
 		this.password = password;
+		
 	}
+	
+	
+	public Admin() {
+		
+	}
+
+
 	public Integer getId() {
 		return id;
 	}
