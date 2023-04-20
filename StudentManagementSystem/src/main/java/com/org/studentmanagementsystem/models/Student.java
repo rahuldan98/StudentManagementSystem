@@ -34,26 +34,30 @@ public class Student {
 	public Integer getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public Student setId(Integer id) {
 		this.id = id;
+		return this;
 	}
 	public String getUsername() {
 		return username;
 	}
-	public void setUsername(String username) {
+	public Student setUsername(String username) {
 		this.username = username;
+		return this;
 	}
 	public String getPassword() {
 		return password;
 	}
-	public void setPassword(String password) {
+	public Student setPassword(String password) {
 		this.password = password;
+		return this;
 	}
 	public List<Course> getCourselist() {
 		return courselist;
 	}
-	public void setCourselist(List<Course> courselist) {
+	public Student setCourselist(List<Course> courselist) {
 		this.courselist = courselist;
+		return this;
 	}
 	@Override
 	public String toString() {

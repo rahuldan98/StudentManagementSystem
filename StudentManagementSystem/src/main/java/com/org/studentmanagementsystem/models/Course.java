@@ -27,14 +27,16 @@ public class Course {
 	public Integer getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public Course setId(Integer id) {
 		this.id = id;
+		return this;
 	}
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
+	public Course setName(String name) {
 		this.name = name;
+		return this;
 	}
 	@Override
 	public String toString() {
