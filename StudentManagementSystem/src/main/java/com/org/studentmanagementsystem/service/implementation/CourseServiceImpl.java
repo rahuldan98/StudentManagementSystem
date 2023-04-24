@@ -24,19 +24,19 @@ public class CourseServiceImpl implements ICourseService {
 
 	@Override
 	public Course create(Course course) {
-		// TODO Auto-generated method stub
+		
 		return courseRepository.save(course);
 	}
 
 	@Override
 	public Course view(Integer id) {
-		// TODO Auto-generated method stub
+		
 		return courseRepository.findById(id).orElseThrow(()-> new CourseNotFoundException("course not found")) ;
 	}
 
 	@Override
 	public List<Course> viewAll() {
-		// TODO Auto-generated method stub
+
 		return courseRepository.findAll();
 	}
 

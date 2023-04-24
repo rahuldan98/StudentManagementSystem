@@ -30,7 +30,7 @@ public class AdminController {
 		return new ResponseEntity<>(adminResult,HttpStatus.OK);
 	}
 	@GetMapping("/login")
-	public ResponseEntity<Admin>login (Admin admin){
+	public ResponseEntity<Admin>login ( @RequestBody Admin admin){
 		Admin adminResult=adminservice.login(admin);
 		return new ResponseEntity<>(adminResult,HttpStatus.OK);
 	}

@@ -38,8 +38,9 @@ public class AdminServiceImpl implements IAdminService {
 	@Override
 	public Admin login(Admin admin) {
 
-			Example<Admin> exampleAdmin = Example.of(admin);
-			Optional<Admin>optionalAdmin=adminRepository.findOne(exampleAdmin);
+			Example<Admin> exampleAdmin = Example.of(admin);  //converts admin Entity into Example
+			Optional<Admin>optionalAdmin=adminRepository.findOne(exampleAdmin);  // findOne()-->searches for admin entity/ object in the database but
+																								//it takes admin entity in the form of Example
 			
 			if(optionalAdmin.isEmpty())
 				throw new InvalidAdminException ("Admin not found");
