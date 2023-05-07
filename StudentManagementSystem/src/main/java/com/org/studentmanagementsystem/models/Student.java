@@ -59,6 +59,10 @@ public class Student {
 		this.courselist = courselist;
 		return this;
 	}
+	public Student() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	@Override
 	public String toString() {
 		return "Student [id=" + id + ", username=" + username + ", password=" + password + ", courselist=" + courselist

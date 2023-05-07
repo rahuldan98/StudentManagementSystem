@@ -27,6 +27,10 @@ public class Course {
 	public Integer getId() {
 		return id;
 	}
+	public Course() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Course setId(Integer id) {
 		this.id = id;
 		return this;

@@ -49,8 +49,9 @@ public class StudentServiceImpl implements IStudentService{
 	@Override
 	public Student update(Integer id, Student student) {
 		
-		return studentRepository.findById(id).orElseThrow(()-> new StudentNotFoundException("Student not found")).setUsername(student.getUsername())
+		Student updatedstudent= studentRepository.findById(id).orElseThrow(()-> new StudentNotFoundException("Student not found")).setUsername(student.getUsername())
 				.setPassword(student.getPassword());
+		return studentRepository.save(updatedstudent);
 	}
 
 	@Override
