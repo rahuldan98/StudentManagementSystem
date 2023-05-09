@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 
 @Entity
@@ -22,6 +24,7 @@ public class Student {
 	private String password;
 	
 	@OneToMany(fetch= FetchType.LAZY,cascade=CascadeType.ALL,mappedBy = "student")
+	@JsonManagedReference
 	private List<Course>courselist;
 	
 	public Student(Integer id, String username, String password, List<Course> courselist) {

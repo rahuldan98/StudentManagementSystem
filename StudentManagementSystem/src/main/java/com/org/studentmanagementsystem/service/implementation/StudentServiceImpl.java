@@ -6,9 +6,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.org.studentmanagementsystem.exception.CourseNotFoundException;
 import com.org.studentmanagementsystem.exception.DuplicateStudentException;
 import com.org.studentmanagementsystem.exception.StudentNotFoundException;
+import com.org.studentmanagementsystem.models.Course;
 import com.org.studentmanagementsystem.models.Student;
+import com.org.studentmanagementsystem.repository.ICourseRepository;
 import com.org.studentmanagementsystem.repository.IStudentRepository;
 import com.org.studentmanagementsystem.service.IStudentService;
 
@@ -16,11 +19,13 @@ import com.org.studentmanagementsystem.service.IStudentService;
 public class StudentServiceImpl implements IStudentService{
 	
 	private IStudentRepository studentRepository;
+	private ICourseRepository courseRepository;
 	
 	@Autowired
-	public StudentServiceImpl(IStudentRepository studentRepository) {
+	public StudentServiceImpl(IStudentRepository studentRepository,ICourseRepository courseRepository) {
 		super();
 		this.studentRepository = studentRepository;
+		this.courseRepository=courseRepository;
 	}
 
 	@Override
@@ -67,21 +72,35 @@ public class StudentServiceImpl implements IStudentService{
 	}
 
 	@Override
-	public Student enrollCourse(Integer studentId, Integer courseId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Course enrollCourse(Integer studentId, Integer courseId) {
+		
+		
+		
+		Student foundStudent=studentRepository.findById(studentId).orElseThrow(()-> new StudentNotFoundException("student not found"));
+		
+		Course foundCourse= courseRepository.findById(courseId).orElseThrow(()->new CourseNotFoundException("course not found")).setStudent(foundStudent);;
+		return courseRepository.save(foundCourse);
+		
 	}
 
 	@Override
-	public Student discardCourse(Integer studentId, Integer courseId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Course discardCourse(Integer studentId, Integer courseId) {
+		
+		
+		Student foundStudent=studentRepository.findById(studentId).orElseThrow(()-> new StudentNotFoundException("student not found"));
+		
+		Course foundCourse= courseRepository.findById(courseId).orElseThrow(()->new CourseNotFoundException("course not found"))
+				.setStudent(null);;
+		return courseRepository.save(foundCourse);
 	}
 
 	@Override
-	public List<Student> viewAllStudentByCourse(Integer courseId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Course> viewAllCourseByStudent(Integer studentId) {
+		
+		Student foundStudent= studentRepository.findById(studentId).orElseThrow(()->new StudentNotFoundException("student not found"));
+		
+		return courseRepository.findByStudent(foundStudent);
+		
 	}
 
 }

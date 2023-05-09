@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.org.studentmanagementsystem.models.Course;
 import com.org.studentmanagementsystem.models.Student;
 import com.org.studentmanagementsystem.service.IStudentService;
 
@@ -58,19 +59,19 @@ public class StudentController {
 		
 	}
 	
-	@PostMapping("/enrollcourse/{studentid}/{courseid}")
-	public ResponseEntity<Student>  enrollCourse(@PathVariable Integer studentId,@PathVariable  Integer courseId){
+	@PostMapping("/enrollcourse/{studentId}/{courseId}")
+	public ResponseEntity<Course>  enrollCourse(@PathVariable Integer studentId,@PathVariable  Integer courseId){
 		return new ResponseEntity<>(studentService.enrollCourse(studentId, courseId),HttpStatus.OK);
 	}
 	
-	@PostMapping("/discardcourse/{studentid}/{courseid}")
-	public ResponseEntity<Student>  discardcourse(@PathVariable Integer studentId,@PathVariable  Integer courseId){
-		return new ResponseEntity<>(studentService.enrollCourse(studentId, courseId),HttpStatus.OK);
+	@DeleteMapping("/discardcourse/{studentId}/{courseId}")
+	public ResponseEntity<Course>  discardcourse(@PathVariable Integer studentId,@PathVariable  Integer courseId){
+		return new ResponseEntity<>(studentService.discardCourse(studentId, courseId),HttpStatus.OK);
 	}
 	
-	@GetMapping("/viewallByCourse/{couseid}")
-	public ResponseEntity<List<Student>>  viewAllStudentByCourse(@PathVariable  Integer courseId){
-		return new ResponseEntity<>(studentService.viewAllStudentByCourse(courseId),HttpStatus.OK);
+	@GetMapping("/viewallByCourse/{studentId}")
+	public ResponseEntity<List<Course>>  viewAllStudentByCourse(@PathVariable  Integer studentId){
+		return new ResponseEntity<>(studentService.viewAllCourseByStudent(studentId),HttpStatus.OK);
 	}
 
 }
